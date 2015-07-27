@@ -1,7 +1,7 @@
 import pylab as p
 
 
-n_path =5 ; n = n_partition = 1000; t=1.0
+n_path =1000 ; n = n_partition = 1000; t=1.0
 alpa= 1; theta = 0.064 ; X0=3.0
 
 #create brownian motion 
@@ -15,13 +15,15 @@ X[:,0]= X0
 #solution of Mean Reversal
 for col in range (n):
     X[:,col+1] = X[:,col] + alpa*(theta - X[:,col])*dt + [0.27 * X[:,col]]*dB[:,col+1]
-    
+ 
+ 
 R= X.transpose() 
+R0 = R[:,0:5]
 
 p.title('Mean Reversal Model')
 p.xlabel('Time,$t$', fontsize=16)
 p.ylabel('R(t)', fontsize=16)
-p.plot(T,R)
+p.plot(T,R0)
 p.show()
 
 #expected value of R(1)
@@ -33,7 +35,7 @@ print(msg)
 # P[R(1)> 2]
 count =0 
 
-for i in range(5):
+for i in range(n_path):
     if R1[i] > 2:
         count = count + 1
         
